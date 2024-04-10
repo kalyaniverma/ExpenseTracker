@@ -1,7 +1,6 @@
 package Entity;
 
-import jakarta.annotation.Nullable;
-import jakarta.persistence.*;
+    import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -31,9 +30,5 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
-
-
-
 
 }
