@@ -2,7 +2,7 @@ package com.example.backend.Service;
 
 import com.example.backend.Entity.User;
 import com.example.backend.Model.UserCreationRequest;
-import com.example.backend.Model.VerifyUserRequest;
+import com.example.backend.Model.UserVerificationRequest;
 import com.example.backend.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +46,7 @@ public class AuthService {
 
     }
 
-    public Boolean verifyUser(VerifyUserRequest request){
+    public Boolean verifyUser(UserVerificationRequest request){
 
         try {
             //Extracting login information of user from request variable

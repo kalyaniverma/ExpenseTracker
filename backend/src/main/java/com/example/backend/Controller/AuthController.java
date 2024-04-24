@@ -2,7 +2,7 @@ package com.example.backend.Controller;
 
 
 import com.example.backend.Model.UserCreationRequest;
-import com.example.backend.Model.VerifyUserRequest;
+import com.example.backend.Model.UserVerificationRequest;
 import com.example.backend.Service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +25,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Boolean verifyUser(@RequestBody VerifyUserRequest request){
+    public Boolean verifyUser(@RequestBody UserVerificationRequest request){
         return authService.verifyUser(request);
     }
 
