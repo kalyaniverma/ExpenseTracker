@@ -1,4 +1,4 @@
-package Entity;
+package com.example.backend.Entity;
 
     import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,12 +21,6 @@ public class User {
 
     @Column(unique = true, nullable = false)
     private String email;
-
-    @Column(unique = true, nullable = false)
-    private String contact;
-
-    @Column(nullable = false)
-    private String address;
 
     @Column(nullable = false)
     private String password;
