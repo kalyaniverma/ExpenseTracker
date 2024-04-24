@@ -8,7 +8,7 @@ import com.example.backend.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public class ExpenseService {
 
             // Extracting expense information from request variable
             String category = request.getCategory();
-            Date date = request.getDate();
+            LocalDate date = request.getDate();
             int amount = request.getAmount();
             String description = request.getDescription();
 
@@ -64,4 +64,26 @@ public class ExpenseService {
     public List<Expense> getAllExpenses(int userId) {
         return expenseRepository.findByUserId(userId);
     }
+
+    // Method to get all expenses sorted by latest date
+    public List<Expense> getAllExpensesSortedByLatestDate(int userId) {
+        return expenseRepository.findAllByOrderByDateDesc(userId);
+    }
+
+    // Method to get all expenses sorted by highest amount
+    public List<Expense> getAllExpensesSortedByHighestAmount(int userId) {
+        return expenseRepository.findAllByOrderByAmountDesc(userId);
+    }
+
+    // Method to get all expenses sorted by lowest amount
+    public List<Expense> getAllExpensesSortedByLowestAmount(int userId) {
+        return expenseRepository.findAllByOrderByAmountAsc(userId);
+    }
+
+    // Method to get all expenses filtered by category
+    public List<Expense> getExpensesByCategory(String category, int userId) {
+        return expenseRepository.findByUserIdAndCategory(userId, category);
+    }
+
+
 }

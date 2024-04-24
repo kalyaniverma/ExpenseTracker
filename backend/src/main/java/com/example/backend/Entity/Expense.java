@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -19,7 +19,7 @@ public class Expense {
     private String category;
 
     @Column
-    private Date date;
+    private LocalDate date;
 
     @Column(nullable = false)
     private int amount;

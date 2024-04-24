@@ -1,13 +1,13 @@
 package com.example.backend.Model;
 
-import com.example.backend.Entity.User;
 import lombok.Data;
-import java.util.Date;
+
+import java.time.LocalDate;
 
 @Data
 public class ExpenseCreationRequest {
     private String category;
-    private Date date;
+    private LocalDate date;
     private int amount;
     private String description;
 }

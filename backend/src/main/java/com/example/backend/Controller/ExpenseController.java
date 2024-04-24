@@ -32,4 +32,33 @@ public class ExpenseController {
         int currentUser = userSessionManager.getCurrentUserId();
         return expenseService.getAllExpenses(currentUser);
     }
+
+    // API to list all expenses sorted by latest date
+    @GetMapping("/latest")
+    public List<Expense> getAllExpensesSortedByLatestDate() {
+        int currentUser = userSessionManager.getCurrentUserId();
+        return expenseService.getAllExpensesSortedByLatestDate(currentUser);
+    }
+
+    // API to list all expenses sorted by highest amount
+    @GetMapping("/highest-amount")
+    public List<Expense> getAllExpensesSortedByHighestAmount() {
+        int currentUser = userSessionManager.getCurrentUserId();
+        return expenseService.getAllExpensesSortedByHighestAmount(currentUser);
+    }
+
+    // API to list all expenses sorted by lowest amount
+    @GetMapping("/lowest-amount")
+    public List<Expense> getAllExpensesSortedByLowestAmount() {
+        int currentUser = userSessionManager.getCurrentUserId();
+        return expenseService.getAllExpensesSortedByLowestAmount(currentUser);
+    }
+
+    // API to list all expenses filtered by category
+    @GetMapping("/category/{category}")
+    public List<Expense> getExpensesByCategory(@PathVariable String category) {
+        int currentUser = userSessionManager.getCurrentUserId();
+        return expenseService.getExpensesByCategory(category, currentUser);
+    }
+
 }
