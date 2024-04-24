@@ -1,9 +1,11 @@
 package com.example.backend.Service;
 
+import com.example.backend.Configuration.UserSessionManager;
 import com.example.backend.Entity.User;
 import com.example.backend.Model.UserCreationRequest;
 import com.example.backend.Model.UserVerificationRequest;
 import com.example.backend.Repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -11,10 +13,13 @@ import java.util.Optional;
 @Service
 public class AuthService {
 
+    private final UserSessionManager userSessionManager;
+
     private final UserRepository userRepository;
 
-    public AuthService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository, UserSessionManager userSessionManager) {
         this.userRepository = userRepository;
+        this.userSessionManager = userSessionManager;
     }
 
     public boolean createUser(UserCreationRequest request){
@@ -56,7 +61,11 @@ public class AuthService {
             Optional<User> optionalUser = userRepository.findByEmail(email);
             if(optionalUser.isPresent()){
                 User user = optionalUser.get();
-                return user.getPassword().equals(password);
+                if (user.getPassword().equals(password)){
+                    userSessionManager.setCurrentUserId(user.getId());
+                    return true;
+                }
+                else return false;
             }
             else return false;
         }
