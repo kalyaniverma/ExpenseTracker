@@ -4,8 +4,10 @@ import com.example.backend.Configuration.UserSessionManager;
 import com.example.backend.Entity.Expense;
 import com.example.backend.Model.ExpenseCreationRequest;
 import com.example.backend.Service.ExpenseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,13 @@ public class ExpenseController {
     public Boolean addExpense(@RequestBody ExpenseCreationRequest request){
         int currentUserId = userSessionManager.getCurrentUserId();
         return expenseService.addExpense(request, currentUserId);
+    }
+
+    @PutMapping("/editExpense/{expenseId}")
+    public boolean editExpense(
+            @PathVariable int expenseId,
+            @RequestBody ExpenseCreationRequest request) {
+        return expenseService.editExpense(expenseId, request);
     }
 
     @GetMapping("/listExpenses")
@@ -61,4 +70,9 @@ public class ExpenseController {
         return expenseService.getExpensesByCategory(category, currentUser);
     }
 
+    @GetMapping("/searchByDate")
+    public List<Expense> searchExpensesByDate(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+        int currentUser = userSessionManager.getCurrentUserId();
+        return expenseService.searchExpensesByDate(date, currentUser);
+    }
 }

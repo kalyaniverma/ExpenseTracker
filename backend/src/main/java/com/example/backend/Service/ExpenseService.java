@@ -61,23 +61,44 @@ public class ExpenseService {
         }
     }
 
+    public boolean editExpense(int expenseId, ExpenseCreationRequest request) {
+
+        // Fetch the expense from the repository
+        Optional<Expense> optionalExpense = expenseRepository.findById(expenseId);
+        if(optionalExpense.isPresent()){
+            Expense expense = optionalExpense.get();
+
+            // Update the expense with the new details
+            expense.setCategory(request.getCategory());
+            expense.setDate(request.getDate());
+            expense.setAmount(request.getAmount());
+            expense.setDescription(request.getDescription());
+
+            // Save the updated expense
+            expenseRepository.save(expense);
+        }
+        else return false;
+
+        return true;
+    }
+
     public List<Expense> getAllExpenses(int userId) {
         return expenseRepository.findByUserId(userId);
     }
 
     // Method to get all expenses sorted by latest date
     public List<Expense> getAllExpensesSortedByLatestDate(int userId) {
-        return expenseRepository.findAllByOrderByDateDesc(userId);
+        return expenseRepository.findByUserIdOrderByDateDesc(userId);
     }
 
     // Method to get all expenses sorted by highest amount
     public List<Expense> getAllExpensesSortedByHighestAmount(int userId) {
-        return expenseRepository.findAllByOrderByAmountDesc(userId);
+        return expenseRepository.findByUserIdOrderByAmountDesc(userId);
     }
 
     // Method to get all expenses sorted by lowest amount
     public List<Expense> getAllExpensesSortedByLowestAmount(int userId) {
-        return expenseRepository.findAllByOrderByAmountAsc(userId);
+        return expenseRepository.findByUserIdOrderByAmountAsc(userId);
     }
 
     // Method to get all expenses filtered by category
@@ -85,5 +106,8 @@ public class ExpenseService {
         return expenseRepository.findByUserIdAndCategory(userId, category);
     }
 
+    public List<Expense> searchExpensesByDate(LocalDate date, int userId) {
+        return expenseRepository.findByUserIdAndDate(userId, date);
+    }
 
 }
