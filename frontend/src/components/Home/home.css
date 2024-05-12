@@ -1,0 +1,158 @@
+/* div{
+color: white;
+} */
+
+.submit-container2{
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+    margin-left: 40px;
+        align-items: center;
+        height: 700px;
+        width: 700px;
+        /* border: 3px solid black; */
+}
+
+.submit2{
+     display: flex; 
+     justify-content: center ;   
+     align-items: center; 
+    width: 330px;
+    height: 165px;
+    color: black;
+    background: greenyellow;
+    border-radius: 80px;
+    font-size: 35px;
+    font-weight: 1000;
+    cursor: pointer;
+    
+}
+div.submit2:hover {
+    color: darkred; /* Change the color to your desired color */
+  }
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 80px;
+    background: white;
+    /* this gives background white */
+    padding-bottom: 70px;
+    /* border: 20px solid red; */
+     width: 1000px;
+     height: 1000px;
+     text-decoration: solid ;
+     text-align: center;
+     font-family: sans-serif;
+     font-size: 60px;
+     font-weight: 900;
+     color: blue;
+   /* border: 6px solid purple; */
+}
+
+.parent2{
+    height: 100%;
+    width: 100%;
+    background: white !important;
+    margin: 0;
+    margin-top: 0px;
+    /* border: 6px solid red; */
+}
+
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Make the container take up the full viewport height */
+    /* border: 2px solid red; */
+  }
+
+
+.navbar {
+    background-color: #333;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+  }
+  
+  .navbar-nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .nav-item {
+    margin-right: 20px;
+  }
+  
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 30px;
+    margin-right: 700px;
+  }
+  
+  .nav-link:hover {
+    color: #ffc107;
+  }
+  
+.sections-container {
+  display: flex;
+  flex: 1; /* Grow to take up remaining space */
+  /* border: 20px solid black; */
+    margin-top: 120px;
+    border: 2px solid red;
+
+
+     background-image: url('../assets/dribble2.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    
+}
+
+.section {
+  flex: 1; /* Each section occupies equal space */
+  padding: 20px;
+  /* border: 7px solid rebeccapurple; */
+  /* Additional styles for each section */
+}
+
+.left-section,
+.right-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.middle-section {
+  /* Middle section styles */
+    /* background-color: whitesmoke; */
+}
+
+.left-section img,
+.right-section img {
+  max-width: 100%; /* Ensure images don't exceed their container width */
+  margin-bottom: 10px; /* Add some spacing between images */
+  height: 600px; /* Maintain aspect ratio */
+  width: 1000px;
+  object-fit: contain; 
+
+}
+h2 {
+    margin-top: +40px;
+    font-size: 94px;
+    font-weight: bold;
+    color: darkmagenta;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 36px;
+    line-height: 1.6;
+    color: black;
+    font-weight: 900;
+  }
+  
