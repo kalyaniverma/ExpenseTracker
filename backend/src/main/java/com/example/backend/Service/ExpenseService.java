@@ -1,11 +1,13 @@
 package com.example.backend.Service;
 
+import com.example.backend.Controller.ExpenseController;
 import com.example.backend.Entity.Expense;
 import com.example.backend.Entity.User;
 import com.example.backend.Model.ExpenseCreationRequest;
 import com.example.backend.Repository.ExpenseRepository;
 import com.example.backend.Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class ExpenseService {
+    private static final Logger logger = LogManager.getLogger(ExpenseController.class);
+
     private final UserRepository userRepository;
 
     private final ExpenseRepository expenseRepository;
@@ -38,7 +42,6 @@ public class ExpenseService {
             int amount = request.getAmount();
             String description = request.getDescription();
 
-
             // Storing the extracted information in the Expense table via expense object created
             expense.setCategory(category);
             expense.setDate(date);
@@ -52,6 +55,7 @@ public class ExpenseService {
 
             // Save the expense to the database
             expenseRepository.save(expense);
+            logger.info("Added Expense successfully :)");
             return true;
         }
 
@@ -77,37 +81,64 @@ public class ExpenseService {
             // Save the updated expense
             expenseRepository.save(expense);
         }
-        else return false;
+        else{
+            logger.warn("Expense to be edited not found !!");
+            return false;
+        }
 
+        logger.info("Edited Expense successfully :)");
         return true;
     }
 
     public List<Expense> getAllExpenses(int userId) {
+        logger.info("Displayed whole Expense list successfully");
         return expenseRepository.findByUserId(userId);
     }
 
     // Method to get all expenses sorted by latest date
     public List<Expense> getAllExpensesSortedByLatestDate(int userId) {
+        logger.info("Displayed expenses sorted by Latest ");
         return expenseRepository.findByUserIdOrderByDateDesc(userId);
     }
 
     // Method to get all expenses sorted by highest amount
     public List<Expense> getAllExpensesSortedByHighestAmount(int userId) {
+        logger.info("Displayed expenses sorted by Highest to lowest amount");
         return expenseRepository.findByUserIdOrderByAmountDesc(userId);
     }
 
     // Method to get all expenses sorted by lowest amount
     public List<Expense> getAllExpensesSortedByLowestAmount(int userId) {
+        logger.info("Displayed expenses Sorted by Lowest to highest amount");
         return expenseRepository.findByUserIdOrderByAmountAsc(userId);
     }
 
     // Method to get all expenses filtered by category
-    public List<Expense> getExpensesByCategory(String category, int userId) {
+    public List<Expense> filterExpensesByCategory(String category, int userId) {
+        logger.info("Displayed Expenses Filtered by Category");
         return expenseRepository.findByUserIdAndCategory(userId, category);
     }
 
+    // Method to get all expenses filtered by month
+    public List<Expense> filterExpensesByMonth(int userId, LocalDate month) {
+        logger.info("Displayed Expenses Month-wise");
+        // Assuming you have a method in ExpenseRepository to filter expenses by user ID and month
+        return expenseRepository.findByUserIdAndDate(userId, month);
+    }
+
+    // Method to search expense by a particular date
     public List<Expense> searchExpensesByDate(LocalDate date, int userId) {
+        logger.info("Searched Expense by date {}", date);
         return expenseRepository.findByUserIdAndDate(userId, date);
     }
 
+    public Boolean deleteExpense(int id) {
+        Optional<Expense> optionalExpense = expenseRepository.findById(id);
+        if(optionalExpense.isPresent()){
+            Expense expense = optionalExpense.get();
+            expenseRepository.delete(expense);
+            return true;
+        }
+        else return false;
+    }
 }

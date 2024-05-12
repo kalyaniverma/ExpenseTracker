@@ -5,13 +5,17 @@ import com.example.backend.Entity.User;
 import com.example.backend.Model.UserCreationRequest;
 import com.example.backend.Model.UserVerificationRequest;
 import com.example.backend.Repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.Optional;
 
 @Service
 public class AuthService {
+    private static final Logger logger = LogManager.getLogger(AuthService.class);
 
     private final UserSessionManager userSessionManager;
 
@@ -42,16 +46,18 @@ public class AuthService {
 
             // Save the user to the database
             userRepository.save(user);
+            logger.info("User {} {} Created Successfully :)", firstname, lastname);
             return true;
         }
         catch (Exception e){
             e.printStackTrace();
+            logger.warn("Couldn't create user !!");
             return false;
         }
 
     }
 
-    public Boolean verifyUser(UserVerificationRequest request){
+    public String verifyUser(UserVerificationRequest request){
 
         try {
             //Extracting login information of user from request variable
@@ -63,15 +69,23 @@ public class AuthService {
                 User user = optionalUser.get();
                 if (user.getPassword().equals(password)){
                     userSessionManager.setCurrentUserId(user.getId());
-                    return true;
+                    logger.info("User with email: {} Verified Successfully :)", email);
+                    return "Logged In successfully";
                 }
-                else return false;
+
+                else{
+                    logger.warn("Invalid Credentials !!");
+                    return "Invalid Credentials !!";
+                }
             }
-            else return false;
+            else{
+                logger.error("User doesn't exist !!");
+                return "User does not exist !!";
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return "";
         }
     }
 }
