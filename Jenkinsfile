@@ -23,10 +23,10 @@ pipeline {
             }
             }
         }
-        stage("Stage 3: backend Build") {
+        stage("Stage 4: backend Build") {
             steps {
                 dir('backend'){
-                sh "npm install"
+                sh "mvn clean package"
                 sh 'docker build -t backend-image .'
             }}
         }
