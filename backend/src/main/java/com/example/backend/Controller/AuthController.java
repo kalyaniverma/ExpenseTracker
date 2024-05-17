@@ -29,4 +29,9 @@ public class AuthController {
         return authService.verifyUser(request);
     }
 
+//    @PostMapping("/login2")
+//    public Boolean verifyUser2(@RequestBody UserVerificationRequest request){
+//        return authService.verifyUser2(request);
+//    }
+
 }

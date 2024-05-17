@@ -74,4 +74,25 @@ public class AuthService {
             return false;
         }
     }
+//    public Boolean VERIFY2(UserVerificationRequest request){
+//        try {
+//            //Extracting login information of user from request variable
+//            String email = request.getEmail();
+//            //String password = request.getPassword();
+//            Optional<User> optionalUser = userRepository.findByEmail(email);
+//            if(optionalUser.isPresent()){
+//                User user = optionalUser.get();
+//                //if (user.getPassword().equals(password)){
+//                    //userSessionManager.setCurrentUserId(user.getId());
+//                    return true;
+//                }
+//                else return false;
+//            //}
+//            //else return false;
+//        }
+//        catch (Exception e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
 }

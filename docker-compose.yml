@@ -1,0 +1,54 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: postgres_db
+    environment:
+      POSTGRES_DB: expense_tracker
+      POSTGRES_USER: kalyani
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5433:5432"  # we didnt give local host port as 5432 because it was running on local as well
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - mynetwork
+
+  backend:
+    build: ./backend
+    container_name: spring_backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/expense_tracker?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: kalyani
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      spring.jpa.properties.hibernate.hbm2ddl.auto: update
+      spring.jpa.hibernate.ddl-auto: none
+      spring.jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      logging.level.com.example.demo: INFO
+      server.port: 9000
+      spring.application.name: backend
+
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: react_frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+volumes:
+  postgres_data:
+
+networks:
+  mynetwork:
