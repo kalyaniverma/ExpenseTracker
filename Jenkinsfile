@@ -26,7 +26,7 @@ pipeline {
                                   sh "docker tag frontend-image mohak7/reactfrontend:frontend-image"
                                   sh "docker push mohak7/reactfrontend:frontend-image"}
                  }
-                 sh 'rmi -f frontend-image'
+                 sh 'docker rmi -f frontend-image'
 
             }
             }
@@ -42,7 +42,7 @@ pipeline {
                                   sh "docker tag backend-image mohak7/springbackend:backend-image"
                                   sh "docker push mohak7/springbackend:backend-image"}
                  }
-                 sh 'rmi -f backend-image'
+                 sh ' docker rmi -f backend-image'
 
             }}
         }
