@@ -15,20 +15,38 @@ pipeline {
                 sh 'npm config rm https-proxy'
             }
         }
-        stage('Stage 3: frontend Build') {
+        stage('Stage 3: frontend Build,push to Dockerhub') {
             steps {
                 dir('frontend'){
                 sh "npm install"
                 sh 'docker build -f Dockerfile.dev -t frontend-image .'
+
+                script{
+                   docker.withRegistry('', 'DockerHubCred') {
+                                  sh "docker tag frontend-image mohak7/reactfrontend:frontend-image"
+                                  sh "docker push mohak7/reactfrontend:frontend-image"}
+                 }
+                 sh 'rmi -f frontend-image'
+
             }
             }
         }
-        stage("Stage 4: backend Build") {
+        stage("Stage 4: backend Build,push to dockerhub") {
             steps {
                 dir('backend'){
                 sh "mvn clean package"
                 sh 'docker build -t backend-image .'
+
+                script{
+                   docker.withRegistry('', 'DockerHubCred') {
+                                  sh "docker tag backend-image mohak7/springbackend:backend-image"
+                                  sh "docker push mohak7/springbackend:backend-image"}
+                 }
+                 sh 'rmi -f backend-image'
+
             }}
         }
     }
 }
+
+
