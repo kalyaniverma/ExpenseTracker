@@ -8,14 +8,14 @@ pipeline {
                 url: 'https://github.com/kalyaniverma/PetGrooming_Application.git'
             }
         }
-        stage('Stage 2: Remove npm proxy') {
-            steps {
-                sh 'npm config rm proxy'
-                sh 'npm config rm http-proxy'
-                sh 'npm config rm https-proxy'
-            }
-        }
-        stage('Stage 3: frontend Build,push to Dockerhub') {
+        // stage('Stage 2: Remove npm proxy') {
+        //     steps {
+        //         sh 'npm config rm proxy'
+        //         sh 'npm config rm http-proxy'
+        //         sh 'npm config rm https-proxy'
+        //     }
+        // }
+        stage('Stage 2: frontend Build,push to Dockerhub') {
             steps {
                 dir('frontend'){
                 sh "npm install"
@@ -31,7 +31,7 @@ pipeline {
             }
             }
         }
-        stage("Stage 4: backend Build,push to dockerhub") {
+        stage("Stage 3: backend Build,push to dockerhub") {
             steps {
                 dir('backend'){
                 sh "mvn clean package"
