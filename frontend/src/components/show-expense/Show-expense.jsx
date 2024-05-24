@@ -16,9 +16,8 @@ const ShowExpense = () => {
         if (no == "1") {
           response = await fetch('http://localhost:9000/listExpenses');
         }else if (no == "2" && valid=='true') {
-           response = await fetch(`http://localhost:9000/expensesByCategory?category=${encodeURIComponent(categoryInput)}`);
-        } else if (no == "3"){ ;
-        }
+           response = await fetch(`http://localhost:9000/expenses?category=${encodeURIComponent(categoryInput)}`);
+        } 
          else if (no == "3") {
           response = await fetch('http://localhost:9000/expenses/filterByMonth?month=2024-01');
         } else if (no == "4") {

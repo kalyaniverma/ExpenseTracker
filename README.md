@@ -1,2 +1,3 @@
-# Pet-Grooming
-This is a pet grooming website with name "Happy Tails Grooming". It will help to provide in-home grooming services for the pets.
+# Moka : Revolutionalizing Expense Tracking
+This is an expense tracking website, which mantains and keeps the records of expenses done by user, so that they get valuable insights and can keep track 
+of their budget spending etc.
