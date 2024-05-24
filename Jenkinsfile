@@ -8,14 +8,14 @@ pipeline {
                 url: 'https://github.com/kalyaniverma/PetGrooming_Application.git'
             }
         }
-        // stage('Stage 2: Remove npm proxy') {
-        //     steps {
-        //         sh 'npm config rm proxy'
-        //         sh 'npm config rm http-proxy'
-        //         sh 'npm config rm https-proxy'
-        //     }
-        // }
-        stage('Stage 2: frontend Build,push to Dockerhub') {
+        stage('Stage 2: Remove npm proxy') {
+            steps {
+                sh 'npm config rm proxy'
+                sh 'npm config rm http-proxy'
+                sh 'npm config rm https-proxy'
+            }
+        }
+        stage('Stage 3: frontend Build,push to Dockerhub ') {
             steps {
                 dir('frontend'){
                 sh "npm install"
@@ -26,12 +26,12 @@ pipeline {
                                   sh "docker tag frontend-image mohak7/reactfrontend:frontend-image"
                                   sh "docker push mohak7/reactfrontend:frontend-image"}
                  }
-                 sh 'docker rmi -f frontend-image'
+                //sh 'docker rmi -f frontend-image'
 
             }
             }
         }
-        stage("Stage 3: backend Build,push to dockerhub") {
+        stage("Stage 4: backend Build,push to dockerhub ") {
             steps {
                 dir('backend'){
                 sh "mvn clean package"
@@ -42,9 +42,19 @@ pipeline {
                                   sh "docker tag backend-image mohak7/springbackend:backend-image"
                                   sh "docker push mohak7/springbackend:backend-image"}
                  }
-                 sh ' docker rmi -f backend-image'
+                 //sh ' docker rmi -f backend-image'
 
             }}
+        }
+
+        stage("stage 5: remove images "){
+        //to avoid naming conflict with next build
+           steps{
+            sh: "docker rmi -f backend-image"
+            sh: "docker rmi -f frontend-image"
+
+
+           }
         }
     }
 }

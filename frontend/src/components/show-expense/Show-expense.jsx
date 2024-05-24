@@ -24,7 +24,9 @@ const ShowExpense = () => {
           response = await fetch('http://localhost:9000/highest-amount');
         } else if (no == "5") {
           response = await fetch('http://localhost:9000/lowest-amount');
-        } else if (no == "6") {
+        } 
+        
+        else if (no == "6") {
           //http://localhost:9000/editExpense/1
         }
         if (!response.ok) {
@@ -116,7 +118,7 @@ const ShowExpense = () => {
                       {no == "6" && (
                         <td>
                           <button onClick={() => handleEditExpense(expense)}>Edit</button>
-                          <button>Delete</button>
+                          <button onClick={() => handledeleteexpense()}>Delete</button>
                         </td>
                       )}
                     </tr>
