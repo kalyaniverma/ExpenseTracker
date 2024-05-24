@@ -14,7 +14,8 @@ services:
       - mynetwork
 
   backend:
-    build: ./backend
+    image: mohak7/springbackend:backend-image
+    #build: ./backend
     container_name: spring_backend
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/expense_tracker?createDatabaseIfNotExist=true
@@ -36,9 +37,10 @@ services:
       - mynetwork
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
+    # build:
+    #   context: ./frontend
+    #   dockerfile: Dockerfile.dev
+    image: mohak7/reactfrontend:frontend-image
     container_name: react_frontend
     ports:
       - "3000:3000"
