@@ -97,6 +97,7 @@ public class ExpenseController {
 
     @DeleteMapping("/deleteExpense")
     public Boolean deleteExpense(@RequestParam int id){
+        logger.info("API: Delete Expense");
         return expenseService.deleteExpense(id);
     }
 
