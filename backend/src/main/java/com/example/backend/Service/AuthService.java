@@ -51,7 +51,7 @@ public class AuthService {
         }
         catch (Exception e){
             e.printStackTrace();
-            logger.warn("Couldn't create user !!");
+            logger.error("Couldn't create user !!");
             return false;
         }
 
@@ -74,7 +74,7 @@ public class AuthService {
                 }
 
                 else{
-                    logger.warn("Invalid Credentials !!");
+                    logger.error("Invalid Credentials !!");
                     return "Invalid Credentials !!";
                 }
             }

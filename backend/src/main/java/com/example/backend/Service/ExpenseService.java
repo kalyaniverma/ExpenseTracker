@@ -61,6 +61,7 @@ public class ExpenseService {
 
         catch (Exception e){
             e.printStackTrace();
+            logger.error("Couldn't add expense !!");
             return false;
         }
     }
@@ -137,8 +138,12 @@ public class ExpenseService {
         if(optionalExpense.isPresent()){
             Expense expense = optionalExpense.get();
             expenseRepository.delete(expense);
+            logger.info("Deleted Expense Successfully :)");
             return true;
         }
-        else return false;
+        else{
+            logger.error("Couldn't delete expense !!");
+            return false;
+        }
     }
 }
