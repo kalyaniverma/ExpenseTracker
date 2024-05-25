@@ -9,6 +9,7 @@ import com.example.backend.Repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -145,5 +146,12 @@ public class ExpenseService {
             logger.error("Couldn't delete expense !!");
             return false;
         }
+    }
+
+    @Transactional
+    public void cleanup() {
+        // Delete the expense with the stored ID
+        Optional<Expense> expenseOptional = expenseRepository.findExpenseByUserIdIsNull();
+        expenseOptional.ifPresent(expenseRepository::delete);
     }
 }

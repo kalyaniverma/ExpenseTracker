@@ -8,6 +8,7 @@ import com.example.backend.Repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 
@@ -87,5 +88,11 @@ public class AuthService {
             e.printStackTrace();
             return "";
         }
+    }
+
+    @Transactional // Ensure that the delete operation is part of the same transaction as the test
+    public void cleanup(String email) {
+        // Find the user by email and delete it
+        userRepository.deleteByEmail(email);
     }
 }

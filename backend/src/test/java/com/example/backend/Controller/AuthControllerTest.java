@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Model.UserCreationRequest;
+import com.example.backend.Model.UserVerificationRequest;
 import com.example.backend.Service.AuthService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +41,24 @@ public class AuthControllerTest {
                         .content(requestBody))
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
+
+        verify(authService, times(1)).createUser(any(UserCreationRequest.class));
+    }
+
+    @Test
+    public void testVerifyUser() throws Exception {
+        UserVerificationRequest request = new UserVerificationRequest();
+        request.setEmail("test@example.com");
+        request.setPassword("password");
+
+        when(authService.verifyUser(any(UserVerificationRequest.class))).thenReturn("success");
+
+        mockMvc.perform(post("/login")
+                        .contentType("application/json")
+                        .content("{\"email\":\"test@example.com\",\"password\":\"password\"}"))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        verify(authService, times(1)).verifyUser(any(UserVerificationRequest.class));
     }
 }
