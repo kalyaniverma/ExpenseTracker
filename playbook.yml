@@ -5,13 +5,13 @@
   tasks:
     - name: Create "app" directory
       file:
-        path: /home/ec2-user/app
+        path: /home/kalyani/app
         state: directory
         mode: '0777'
 
     - name: Create "db" directory
       file:
-        path: /home/ec2-user/app/db
+        path: /home/kalyani/app/db
         state: directory
         mode: '0777'
 
