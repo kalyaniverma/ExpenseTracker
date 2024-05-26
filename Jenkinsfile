@@ -40,7 +40,7 @@ pipeline {
                 script{
                    docker.withRegistry('', 'DockerHubCred') {
                                   sh "docker tag backend-image kalyaniv2001/expense_tracker_springboot:latest"
-                                  sh "docker push kalyaniv2001/expense_tracker_springboot:backend-latest"}
+                                  sh "docker push kalyaniv2001/expense_tracker_springboot:latest"}
                  }
                  //sh ' docker rmi -f backend-image'
 
