@@ -23,8 +23,8 @@ pipeline {
 
                 script{
                    docker.withRegistry('', 'DockerHubCred') {
-                                  sh "docker tag frontend-image kalyaniv2001/expenseTracker_react:latest"
-                                  sh "docker push kalyaniv2001/expenseTracker_react:latest"}
+                                  sh "docker tag frontend-image kalyaniv2001/expense_tracker_react:latest"
+                                  sh "docker push kalyaniv2001/expense_tracker_react:latest"}
                  }
                 //sh 'docker rmi -f frontend-image'
 
@@ -39,8 +39,8 @@ pipeline {
 
                 script{
                    docker.withRegistry('', 'DockerHubCred') {
-                                  sh "docker tag backend-image kalyaniv2001/expenseTracker_springboot:latest"
-                                  sh "docker push kalyaniv2001/expenseTracker_springboot:backend-latest"}
+                                  sh "docker tag backend-image kalyaniv2001/expense_tracker_springboot:latest"
+                                  sh "docker push kalyaniv2001/expense_tracker_springboot:backend-latest"}
                  }
                  //sh ' docker rmi -f backend-image'
 
