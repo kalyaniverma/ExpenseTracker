@@ -14,7 +14,7 @@ services:
       - mynetwork
 
   backend:
-    image: kalyaniv2001/expenseTracker_springboot:latest
+    image: kalyaniv2001/expense_tracker_springboot:latest
     #build: ./backend
     container_name: spring_backend
     environment:
@@ -42,7 +42,7 @@ services:
     # build:
     #   context: ./frontend
     #   dockerfile: Dockerfile.dev
-    image: kalyaniv2001/expenseTracker_react:latest
+    image: kalyaniv2001/expense_tracker_react:latest
     container_name: react_frontend
     ports:
       - "3000:3000"
