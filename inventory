@@ -1,2 +1,2 @@
 [ec2]
-ec2-instance ansible_host=13.233.229.143 ansible_user=ec2-user ansible_ssh_private_key_file=/home/kalyani/aws/Backend.pem
+3.6.36.243 ansible_user=ec2-user ansible_ssh_private_key_file=/home/kalyani/aws/Backend.pem
