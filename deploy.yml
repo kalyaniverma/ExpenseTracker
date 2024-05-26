@@ -22,13 +22,25 @@
       vars:
         docker_compose_version: "1.29.2"
 
+    name: Create a directory with 0777 permissions
+      file:
+        path: /home/ec2-user/app/db
+        state: directory
+        mode: '0777'
+
+    - name: Create "app" directory
+      file:
+        path: /home/ec2-user/app
+        state: directory
+        mode: '0777'
+
     - name: Copy Docker Compose file
       copy:
         src: docker-compose.yml
-        dest: /home/ec2-user/docker-compose.yml
+        dest: /home/ec2-user/app/docker-compose.yml
         mode: '0644'
 
     - name: Run Docker Compose
       command: docker-compose up -d
       args:
-        chdir: /home/ec2-user
+        chdir: /home/ec2-user/app/docker-compose.yml
