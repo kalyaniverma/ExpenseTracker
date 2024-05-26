@@ -50,8 +50,8 @@ pipeline {
         stage("stage 5: remove images "){
         //to avoid naming conflict with next build
            steps{
-            sh: "docker rmi -f backend-image"
-            sh: "docker rmi -f frontend-image"
+            sh 'docker rmi -f backend-image'
+            sh 'docker rmi -f frontend-image'
            }
         }
 
