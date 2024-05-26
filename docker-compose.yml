@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"  # we didnt give local host port as 5432 because it was running on local as well
     volumes:
-      - ./postgres_data:/var/lib/postgresql/data
+      - /home/ec2-user/app/db:/var/lib/postgresql/data
     networks:
       - mynetwork
 
@@ -32,7 +32,7 @@ services:
     ports:
       - "9000:9000"
     volumes:
-      - ./app:/app/logs
+      - /home/ec2-user/app:/app/logs
     depends_on:
       - db
     networks:
