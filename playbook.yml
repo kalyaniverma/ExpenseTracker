@@ -4,24 +4,23 @@
   remote_user: kalyani
   become: false
   tasks:
-    - name: Create "app" directory
+
+    - name: Ensure /home/kalyani/app directory exists
       file:
         path: /home/kalyani/app
         state: directory
-        mode: '0777'
+        owner: kalyani
+        group: kalyani
+        mode: '0755'
 
-    - name: Create "db" directory
+    - name: Ensure /home/kalyani/app/db directory exists
       file:
         path: /home/kalyani/app/db
         state: directory
-        mode: '0777'
-
-    - name: Copy Docker Compose file
-      copy:
-        src: docker-compose.yml
-        dest: /home/kalyani/app/docker-compose.yml
-        mode: '0644'
-
+        owner: kalyani
+        group: kalyani
+        mode: '0755'
+    
     - name: Run Docker Compose
       command: /usr/local/bin/docker-compose up -d
       args:
