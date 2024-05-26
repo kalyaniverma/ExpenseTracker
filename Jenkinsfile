@@ -60,7 +60,8 @@ pipeline {
                 script {
                     ansiblePlaybook(
                         playbook: 'playbook.yml',
-                        inventory: 'inventory'
+                        inventory: 'inventory',
+			extras: "-b" // This option enables sudo privileges for Ansible
                     )
                 }
             }
