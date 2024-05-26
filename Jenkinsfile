@@ -23,8 +23,8 @@ pipeline {
 
                 script{
                    docker.withRegistry('', 'DockerHubCred') {
-                                  sh "docker tag frontend-image mohak7/reactfrontend:frontend-image"
-                                  sh "docker push mohak7/reactfrontend:frontend-image"}
+                                  sh "docker tag frontend-image kalyaniv2001/expenseTracker_react:latest"
+                                  sh "docker push kalyaniv2001/expenseTracker_react:latest"}
                  }
                 //sh 'docker rmi -f frontend-image'
 
@@ -39,8 +39,8 @@ pipeline {
 
                 script{
                    docker.withRegistry('', 'DockerHubCred') {
-                                  sh "docker tag backend-image mohak7/springbackend:backend-image"
-                                  sh "docker push mohak7/springbackend:backend-image"}
+                                  sh "docker tag backend-image kalyaniv2001/expenseTracker_springboot:latest"
+                                  sh "docker push kalyaniv2001/expenseTracker_springboot:backend-latest"}
                  }
                  //sh ' docker rmi -f backend-image'
 
@@ -52,10 +52,19 @@ pipeline {
            steps{
             sh: "docker rmi -f backend-image"
             sh: "docker rmi -f frontend-image"
-
-
            }
         }
+
+	stage('Run Ansible Playbook') {
+            steps {
+                script {
+                    ansiblePlaybook(
+                        playbook: 'deploy.yml',
+                        inventory: 'inventory'
+                    )
+                }
+            }
+        }	
     }
 }
 
