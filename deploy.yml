@@ -22,7 +22,7 @@
       vars:
         docker_compose_version: "1.29.2"
 
-    name: Create a directory with 0777 permissions
+    - name: Create a directory with 0777 permissions
       file:
         path: /home/ec2-user/app/db
         state: directory
