@@ -1,6 +1,6 @@
 ---
 - name: Deploy Docker Compose application
-  hosts: ec2
+  hosts: localhost
   become: yes
   tasks:
     - name: Create "app" directory
