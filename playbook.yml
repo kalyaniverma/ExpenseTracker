@@ -1,7 +1,8 @@
 ---
 - name: Deploy Docker Compose application
   hosts: localhost
-  become: yes
+  remote_user: kalyani
+  become: false
   tasks:
     - name: Create "app" directory
       file:
