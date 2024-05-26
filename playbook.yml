@@ -3,44 +3,25 @@
   hosts: ec2
   become: yes
   tasks:
-    - name: Ensure Docker is installed
-      yum:
-        name: docker
-        state: present
-
-    - name: Ensure Docker is running
-      service:
-        name: docker
-        state: started
-        enabled: yes
-
-    - name: Ensure Docker Compose is installed
-      get_url:
-        url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
-        dest: /usr/local/bin/docker-compose
-        mode: '0755'
-      vars:
-        docker_compose_version: "1.29.2"
-
-    - name: Create a directory with 0777 permissions
-      file:
-        path: /home/ec2-user/app/db
-        state: directory
-        mode: '0777'
-
     - name: Create "app" directory
       file:
         path: /home/ec2-user/app
         state: directory
         mode: '0777'
 
+    - name: Create "db" directory
+      file:
+        path: /home/ec2-user/app/db
+        state: directory
+        mode: '0777'
+
     - name: Copy Docker Compose file
       copy:
         src: docker-compose.yml
-        dest: /home/ec2-user/app/docker-compose.yml
+        dest: /home/kalyani/app/docker-compose.yml
         mode: '0644'
 
     - name: Run Docker Compose
-      command: docker-compose up -d
+      command: /usr/local/bin/docker-compose up -d
       args:
-        chdir: /home/ec2-user/app/docker-compose.yml
+        chdir: /home/kalyani/app/
