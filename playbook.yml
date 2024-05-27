@@ -2,12 +2,13 @@
 - name: Deploy Docker Compose application
   hosts: default
   tasks:
+    - name: Copy Docker Compose file
+      copy:
+        src: docker-compose.yml
+        dest: "docker-compose.yml"
 
     - name: Run Docker Compose Up command
-      docker_compose:
-        project_src: ./
-        state: present
-        pull: yes
+      command: /usr/local/bin/docker-compose up -d
 
 
 
