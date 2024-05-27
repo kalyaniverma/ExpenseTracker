@@ -1,17 +1,13 @@
 ---
 - name: Deploy Docker Compose application
   hosts: default
-  remote_user: kalyani
-  become: true
   tasks:
 
-    - name: Remove existing containers
-      command: /usr/local/bin/docker-compose down
-      args:
-        chdir: /home/kalyani/app/
+    - name: Run Docker Compose Up command
+      docker_compose:
+        project_src: ./
+        state: present
+        pull: yes
 
 
-    - name: Run Docker Compose
-      command: /usr/local/bin/docker-compose up -d
-      args:
-        chdir: /home/kalyani/app/
+
