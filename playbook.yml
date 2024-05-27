@@ -5,22 +5,12 @@
   become: false
   tasks:
 
-    - name: Ensure /home/kalyani/app directory exists
-      file:
-        path: /home/kalyani/app
-        state: directory
-        owner: kalyani
-        group: kalyani
-        mode: '0755'
+    - name: Remove existing containers
+      command: /usr/local/bin/docker-compose down
+      args:
+        chdir: /home/kalyani/app/
 
-    - name: Ensure /home/kalyani/app/db directory exists
-      file:
-        path: /home/kalyani/app/db
-        state: directory
-        owner: kalyani
-        group: kalyani
-        mode: '0755'
-    
+
     - name: Run Docker Compose
       command: /usr/local/bin/docker-compose up -d
       args:
