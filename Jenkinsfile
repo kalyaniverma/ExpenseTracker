@@ -56,14 +56,12 @@ pipeline {
         }
 
 	stage('Run Ansible Playbook') {
-            steps {
+            steps {		
                 script {
-                    ansiblePlaybook(
-                        playbook: 'playbook.yml',
-                        inventory: 'inventory',
-			extras: "-b" // This option enables sudo privileges for Ansible
-                    )
-                }
+		  dir(''){
+                    sh '''echo '1820' | sudo -S ansible-playbook -i inventory playbook.yml'''
+                  }
+		}
             }
         }	
     }
