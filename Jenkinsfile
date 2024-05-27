@@ -47,11 +47,11 @@ pipeline {
             }}
         }
 
-        stage("stage 4: remove images "){
+        stage("stage 4: Clean docker images "){
         //to avoid naming conflict with next build
            steps{
-            sh 'docker rmi -f backend-image'
-            sh 'docker rmi -f frontend-image'
+            sh 'docker container prune -f'
+            sh 'docker image prune -f'
            }
         }
 
