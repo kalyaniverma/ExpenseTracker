@@ -1,8 +1,8 @@
 ---
 - name: Deploy Docker Compose application
-  hosts: localhost
+  hosts: default
   remote_user: kalyani
-  become: false
+  become: true
   tasks:
 
     - name: Remove existing containers
