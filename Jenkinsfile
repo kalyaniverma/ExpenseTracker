@@ -18,8 +18,9 @@ pipeline {
         }
         stage('Stage 2: Testing backend code'){
             steps{
-                dir('backend')
-                sh 'mvn test'
+                dir('backend'){
+                    sh 'mvn test'
+                }
             }
 
             post{ //Used to generate report in visulaization form telling how many test cases passes or fail
@@ -28,13 +29,7 @@ pipeline {
                 }
             }
         }
-        // stage('Stage 2: Remove npm proxy') {
-        //     steps {
-        //         sh 'npm config rm proxy'
-        //         sh 'npm config rm http-proxy'
-        //         sh 'npm config rm https-proxy'
-        //     }
-        // }
+        
         stage('Stage 2: frontend Build,push to Dockerhub ') {
             steps {
                 dir('frontend'){
