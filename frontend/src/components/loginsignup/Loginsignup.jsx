@@ -151,15 +151,18 @@ if (!emailRegex.test(email)) {
 
    // Handle successful login (e.g., authenticate user, redirect to dashboard)
      console.log('Login successful:', response2.data);
-     if(response2.data){
+     if(response2.data=="Logged In successfully"){
         alert("login successful");
         navigate('/home');
      }
     // Clear form fields
      //clearFormFields();
-     else{
-      alert("login unsuccessful, Stay away hacker !!!!! Ill call the police");
+     else if(response2.data=="Invalid Credentials !!"){
+      alert("INVALID PASSWORD, Stay away hacker !!!!! Ill call the police");
       
+     }
+     else{
+      alert("wrong email id you theifff");
      }
    } catch (error) {
      // Handle login error (e.g., display error message for invalid credentials)
