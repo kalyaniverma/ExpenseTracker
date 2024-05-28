@@ -155,7 +155,7 @@ if (!emailRegex.test(email)) {
       alert("Login Successful :)");
       navigate('/home');
     } else if (response2.data === "Invalid Credentials !!") {
-      alert("Invalid credentials. Please try again.");
+      alert("Invalid credentials! Please try again.");
     } else if (response2.data === "User does not exist !!") {
       alert("User does not exist. Please sign up first");
       setAction("Sign Up");
