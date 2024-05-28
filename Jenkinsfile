@@ -2,21 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Stage 1: Git Clone') {
+        stage('1. Git Clone') {
             steps {
                 git branch: 'main',
                 url: 'https://github.com/kalyaniverma/PetGrooming_Application.git'
             }
         }
-        stage('Stage 2: Frontend Build'){
-            steps{
-                dir('frontend'){
-                    sh "npm install"
-                }
-            }
 
-        }
-        stage('Stage 2: Testing backend code'){
+        stage('2. Testing backend code'){
             steps{
                 dir('backend'){
                     sh 'mvn test'
@@ -30,7 +23,7 @@ pipeline {
             }
         }
         
-        stage('Stage 2: frontend Build,push to Dockerhub ') {
+        stage('3. Frontend: Build and Push docker image') {
             steps {
                 dir('frontend'){
                 sh "npm install"
@@ -45,7 +38,7 @@ pipeline {
             }
             }
         }
-        stage("Stage 3: backend Build,push to dockerhub ") {
+        stage('4. Backend: Build and Push docker image') {
             steps {
                 dir('backend'){
                 sh "mvn clean package"
@@ -60,7 +53,7 @@ pipeline {
             }}
         }
 
-        stage("stage 4: Clean docker images "){
+        stage('5. Clean Docker Images'){
         //to avoid naming conflict with next build
            steps{
             sh 'docker container prune -f'
@@ -68,7 +61,7 @@ pipeline {
            }
         }
 
-	stage('Run Ansible Playbook') {
+	stage('6. Run Ansible Playbook') {
             steps {		
                 script {
 		            dir(''){
