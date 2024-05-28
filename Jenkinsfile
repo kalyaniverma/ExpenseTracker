@@ -8,6 +8,26 @@ pipeline {
                 url: 'https://github.com/kalyaniverma/PetGrooming_Application.git'
             }
         }
+        stage('Stage 2: Frontend Build'){
+            steps{
+                dir('frontend'){
+                    sh "npm install"
+                }
+            }
+
+        }
+        stage('Stage 2: Testing backend code'){
+            steps{
+                dir()
+                sh 'mvn test'
+            }
+
+            post{ //Used to generate report in visulaization form telling how many test cases passes or fail
+                always{
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                }
+            }
+        }
         // stage('Stage 2: Remove npm proxy') {
         //     steps {
         //         sh 'npm config rm proxy'
@@ -26,7 +46,6 @@ pipeline {
                                   sh "docker tag frontend-image kalyaniv2001/expense_tracker_react:latest"
                                   sh "docker push kalyaniv2001/expense_tracker_react:latest"}
                  }
-                //sh 'docker rmi -f frontend-image'
 
             }
             }
@@ -42,7 +61,6 @@ pipeline {
                                   sh "docker tag backend-image kalyaniv2001/expense_tracker_springboot:latest"
                                   sh "docker push kalyaniv2001/expense_tracker_springboot:latest"}
                  }
-                 //sh ' docker rmi -f backend-image'
 
             }}
         }
@@ -58,10 +76,10 @@ pipeline {
 	stage('Run Ansible Playbook') {
             steps {		
                 script {
-		  dir(''){
-                    sh '''echo '1820' | sudo -S ansible-playbook -i inventory playbook.yml'''
+		            dir(''){
+                        sh '''echo '1820' | sudo -S ansible-playbook -i inventory playbook.yml'''
                   }
-		}
+		        }
             }
         }	
     }
