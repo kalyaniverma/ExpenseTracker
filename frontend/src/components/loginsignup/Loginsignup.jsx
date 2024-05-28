@@ -151,17 +151,21 @@ if (!emailRegex.test(email)) {
 
    // Handle successful login (e.g., authenticate user, redirect to dashboard)
      console.log('Login successful:', response2.data);
-     if(response2.data){
-        alert("login successful");
+     if(response2.data === "Logged In successfully"){
+        alert("Login Successful :)");
         navigate('/home');
      }
-    // Clear form fields
-     //clearFormFields();
-     else{
-      alert("login unsuccessful, Stay away hacker !!!!! Ill call the police");
-      
+     else if(response2.data === "Invalid Credentials !!"){
+      alert("Invalid credentials. Please try again.");
      }
-   } catch (error) {
+     else if (response2.data === "User does not exist !!") {
+      alert("User does not exist. Please sign up first");
+      setAction("Sign Up");
+     }
+     else{
+      alert("login unsuccessful, Stay away hacker !!!!! Ill call the police"); 
+     }
+    }catch (error) {
      // Handle login error (e.g., display error message for invalid credentials)
      console.error('Login error:', error);
      clearFormFields();
